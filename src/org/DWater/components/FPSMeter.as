@@ -81,7 +81,7 @@ package org.DWater.components
 				if (a>0) {
 					graphics.moveTo(0, Math.max(_rectHeight-_usedMemories[0] / _totalMemory * _rectHeight/2,0));
 				}
-				for (var i:int = 1; i < a;i++ ) {
+				for (i = 1; i < a;i++ ) {
 					graphics.lineTo(i, Math.max(_rectHeight-_usedMemories[i] / _totalMemory * _rectHeight/2,0));
 				}
 				_textField.x = _rectWidth - _textField.width;
