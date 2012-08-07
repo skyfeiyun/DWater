@@ -11,7 +11,7 @@ package org.DWater.utils
 	[Event(name = "change", type = "flash.events.Event")]
 	public class Style extends EventDispatcher
 	{
-		[Embed(source = "/../assets/font.ttf", embedAsCFF = "false", fontName = "ZHSCNMT-GBK", mimeType = "application/x-font")]
+		[Embed(source = "/../assets/font.ttf", embedAsCFF = "false", fontName = "ZHSCNMT-GBK", mimeType = "application/x-font",unicodeRange="U+0020,U+0041-005A,U+0020,U+0061-007A,U+0030-0039,U+002E,U+0020-002F,U+003A-0040,U+005B-0060,U+007B-007E,U+0020-002F,U+0030-0039,U+003A-0040,U+0041-005A,U+005B-0060,U+0061-007A,U+007B-007E")]
 		protected var _DFont:Class;
 		
 		public static const WATER:String = "water";
