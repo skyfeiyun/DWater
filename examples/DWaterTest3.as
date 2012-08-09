@@ -3,6 +3,8 @@ package
 	import flash.display.Sprite;
 	import org.DWater.charts.LineChart;
 	import org.DWater.charts.PieChart;
+	import org.DWater.components.ColorChooser;
+	import flash.utils.getTimer;
 	
 	/**
 	 * ...
@@ -31,6 +33,9 @@ package
 				itemData.push( { label:"item" + i.toString(), value:Math.random()*100} );
 			}
 			pieChart.data = itemData;
+			var colorChooser:ColorChooser = new ColorChooser(this, 350, 300);
+			var colorChooser2:ColorChooser = new ColorChooser(this, 350, 440);
+			colorChooser2.useInput = false;
 		}
 		
 	}
