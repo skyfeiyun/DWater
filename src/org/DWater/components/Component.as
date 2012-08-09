@@ -2,7 +2,7 @@ package org.DWater.components
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import org.DWater.utils.Style;
+	import org.DWater.skin.Style;
 	
 	/**
 	 * ...

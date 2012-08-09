@@ -6,7 +6,6 @@ package org.DWater.components
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
-	import org.DWater.utils.Style;
 	
 	/**
 	 * ...
