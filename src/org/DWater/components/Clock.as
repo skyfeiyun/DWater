@@ -4,7 +4,7 @@ package org.DWater.components
 	import flash.events.Event;
 	import flash.utils.getTimer;
 	/**
-	 * ...
+	 * Clock is often used to show time.
 	 * @author Dong Dong
 	 */
 	public class Clock extends Component 
@@ -18,9 +18,15 @@ package org.DWater.components
 			_name = "Clock";
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			super.refreshStyle();
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			
@@ -52,6 +58,9 @@ package org.DWater.components
 			graphics.lineTo(0, 0);
 			graphics.endFill();
 		}
+		/**
+		 * @private
+		 */
 		override protected function update(evt:Event):void {
 			var t:int = getTimer();
 			var dt:int = t - _milliseconds;
@@ -60,12 +69,21 @@ package org.DWater.components
 			_changed = true;
 			super.update(evt);
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * current time in array, hours first, minutes second, seconds third
+		 */
 		public function get time():Array {
 			return [_time.hours, _time.minutes, _time.seconds];
 		}

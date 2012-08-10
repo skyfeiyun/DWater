@@ -9,7 +9,7 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	
 	/**
-	 * ...
+	 * This component contains both normal push butotn and toggle button.
 	 * @author Dong Dong
 	 */
 	public class Button extends Component
@@ -43,6 +43,9 @@ package org.DWater.components
 			this.label = label;
 			mouseChildren = false;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -57,6 +60,9 @@ package org.DWater.components
 			_textFormat.align = TextFormatAlign.CENTER;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			switch(_state) {
@@ -89,6 +95,9 @@ package org.DWater.components
 			_textField.x = (_rectWidth - _textField.width) / 2;
 			_textField.y = (_rectHeight - _textField.height) / 2;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(MouseEvent.MOUSE_OVER, onMouse);
@@ -96,6 +105,9 @@ package org.DWater.components
 			addEventListener(MouseEvent.MOUSE_UP, onMouse);
 			addEventListener(MouseEvent.MOUSE_OUT, onMouse);
 		}
+		/**
+		 * @private
+		 */
 		protected function onMouse(evt:MouseEvent):void {
 			switch(evt.type) {
 				case MouseEvent.MOUSE_OVER:
@@ -148,6 +160,9 @@ package org.DWater.components
 			_rectHeight = value;
 			_changed=true;
 		}
+		/**
+		 * label text of the button
+		 */
 		public function get label():String {
 			return _text;
 		}
@@ -160,6 +175,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * if the component is enabled
+		 */
 		public function get enabled():Boolean {
 			return _enabled;
 		}
@@ -173,18 +191,27 @@ package org.DWater.components
 			}
 			_changed=true;
 		}
+		/**
+		 * icon of the button
+		 */
 		public function set icon(source:Sprite):void {
 			_icon = source;
 		}
 		public function get icon():Sprite {
 			return _icon;
 		}
+		/**
+		 * if the button is a toggle button
+		 */
 		public function get toggle():Boolean {
 			return _toggle;
 		}
 		public function set toggle(value:Boolean):void {
 			_toggle = true;
 		}
+		/**
+		 * @private
+		 */
 		internal function set labelSize(value:Number):void {
 			_textFormat.size = value;
 			_changed=true;

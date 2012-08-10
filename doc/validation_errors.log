@@ -1,0 +1,12 @@
+Incompatible methods: 
+org.DWater.charts:BarChart:addItemAt ( Object, uint) does not have a matching signature with org.DWater.components:RadioButtonGroup:addItemAt ( Object, int ) 
+@copy cannot copy @param description
+
+Incompatible methods: 
+org.DWater.charts:BarChart:getItemAt ( uint) does not have a matching signature with org.DWater.components:RadioButtonGroup:getItemAt ( int ) 
+@copy cannot copy @param description
+
+Incompatible methods: 
+org.DWater.charts:BarChart:removeItemAt ( uint) does not have a matching signature with org.DWater.components:RadioButtonGroup:removeItemAt ( int ) 
+@copy cannot copy @param description
+

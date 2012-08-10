@@ -8,7 +8,7 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	
 	/**
-	 * ...
+	 * Label is often used to display text.
 	 * @author dongdong
 	 */
 	public class Label extends Component 
@@ -29,6 +29,9 @@ package org.DWater.components
 			super(parent, x, y);
 			this.text = text;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -44,6 +47,9 @@ package org.DWater.components
 			_textFormat.align = TextFormatAlign.CENTER;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			if (_border) {
@@ -78,6 +84,9 @@ package org.DWater.components
 			_rectHeight = value;
 			_changed = true;
 		}
+		/**
+		 * text of this label
+		 */
 		public function get text():String {
 			return _text;
 		}
@@ -90,6 +99,9 @@ package org.DWater.components
 			}
 			_changed=true;
 		}
+		/**
+		 * if this label should show border
+		 */
 		public function get border():Boolean {
 			return _border;
 		}

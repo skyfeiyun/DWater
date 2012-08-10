@@ -4,7 +4,7 @@ package org.DWater.components
 	import flash.display.Sprite;
 	
 	/**
-	 * ...
+	 * ContainerComponent is the base class of all the container.
 	 * @author dongdong
 	 */
 	public class ContainerComponent extends Component
@@ -17,6 +17,9 @@ package org.DWater.components
 			_registY = 0;
 			super(parent, x, y);
 		}
+		/**
+		 * Please use this function instead of addChild method when you add new element to a container.
+		 */
 		public function addComponent(component:DisplayObject):Boolean {
 			var x:Number = component.x;
 			var y:Number = component.y;
@@ -33,6 +36,9 @@ package org.DWater.components
 				return false;
 			}
 		}
+		/**
+		 * Please use this function instead of removeChild method when you add new element to a container.
+		 */
 		public function removeComponent(component:DisplayObject):Boolean {
 			if (contains(component) && component) {
 				if (component is Component) {
@@ -47,9 +53,15 @@ package org.DWater.components
 				return false;
 			}
 		}
+		/**@
+		 * @private
+		 */
 		public function get registX():Number {
 			return _registX;
 		}
+		/**@
+		 * @private
+		 */
 		public function get registY():Number {
 			return _registY;
 		}

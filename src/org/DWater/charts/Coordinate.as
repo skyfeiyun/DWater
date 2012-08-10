@@ -12,7 +12,7 @@ package org.DWater.charts
 	import org.DWater.utils.DCalculator.DParser;
 	
 	/**
-	 * ...
+	 * Coordinate component is used to draw 2D function graphs.
 	 * @author Dong Dong
 	 */
 	public class Coordinate extends Component 
@@ -87,6 +87,9 @@ package org.DWater.charts
 			super(parent, x, y);
 			
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -119,6 +122,9 @@ package org.DWater.charts
 			_canvasBMP.bitmapData = _canvasBMD;
 			_canvasBMP.y = -_rectHeight;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			
@@ -293,6 +299,9 @@ package org.DWater.charts
 				_canvasBMD.unlock();
 			}
 		}
+		/**
+		 * Width of the coordinate.
+		 */
 		override public function set width(value:Number):void {
 			var temp:BitmapData = new BitmapData(value, _rectHeight, true, 0);
 			var scale:Matrix = new Matrix();
@@ -306,6 +315,9 @@ package org.DWater.charts
 			_rectWidth = value;
 			_changed = true;
 		}
+		/**
+		 * Height of the coordinate.
+		 */
 		override public function set height(value:Number):void {
 			var temp:BitmapData = new BitmapData(_rectWidth, value, true, 0);
 			var scale:Matrix = new Matrix();
@@ -320,6 +332,9 @@ package org.DWater.charts
 			_rectHeight = value;
 			_changed = true;
 		}
+		/**
+		 * Value range of the coordinate.
+		 */
 		public function get xMin():Number {
 			return _xMin;
 		}
@@ -328,6 +343,9 @@ package org.DWater.charts
 			_changed = true;
 			_contentChanged = true;
 		}
+		/**
+		 * @copy #xMin()
+		 */
 		public function get xMax():Number {
 			return _xMax;
 		}
@@ -336,6 +354,9 @@ package org.DWater.charts
 			_changed = true;
 			_contentChanged = true;
 		}
+		/**
+		 * @copy #xMin()
+		 */
 		public function get yMin():Number {
 			return _yMin;
 		}
@@ -344,6 +365,9 @@ package org.DWater.charts
 			_changed = true;
 			_contentChanged = true;
 		}
+		/**
+		 * @copy #xMin()
+		 */
 		public function get yMax():Number {
 			return _yMax;
 		}
@@ -352,6 +376,9 @@ package org.DWater.charts
 			_changed = true;
 			_contentChanged = true;
 		}
+		/**
+		 * If the back grid tile should be shown.
+		 */
 		public function get showTile():Boolean {
 			return _showTile;
 		}
@@ -359,7 +386,14 @@ package org.DWater.charts
 			_showTile = value;
 			_changed = true;
 		}
-		
+		/**
+		 * Draw the graph of an implicit function by its string formula.
+		 * @param	functionString formula string
+		 * @param	xVarName y variable name in the formula
+		 * @param	yVarName x variable name in the formula
+		 * @param	lineColor color of the graph
+		 * @param	error min error of this graph
+		 */
 		public function drawFunction3(functionString:String, xVarName:String="x",yVarName:String="y",lineColor:uint=0xff000000,error:Number=1e-3):void {
 			var func:Object = new Object();
 			var parser:DParser=new DParser(functionString, [xVarName, yVarName]);
@@ -388,6 +422,12 @@ package org.DWater.charts
 			_canvasBMD.unlock();
 			_funcs.push(func);
 		}
+		/**
+		 * Draw the graph of an implicit function by its funciton.
+		 * @param	functionObject formula function
+		 * @param	lineColor color of the graph
+		 * @param	error min error of this graph
+		 */
 		public function drawFunction4(functionObject:Function,lineColor:uint=0xff000000,error:Number=1e-3):void {
 			var func:Object = new Object();
 			func.funcObject = functionObject;
@@ -413,6 +453,12 @@ package org.DWater.charts
 			_canvasBMD.unlock();
 			_funcs.push(func);
 		}
+		/**
+		 * Draw the graph of an explicit function by its funciton.
+		 * @param	functionObject formula function
+		 * @param	lineColor color of the graph
+		 * @param	reverse if the independent variable is y
+		 */
 		public function drawFunction2(functionObject:Function, lineColor:uint = 0xff000000, reverse:Boolean = false):void {
 			var func:Object = new Object();
 			func.funcObject = functionObject;
@@ -467,6 +513,13 @@ package org.DWater.charts
 			_canvasBMD.unlock();
 			_funcs.push(func);
 		}
+		/**
+		 * Draw the graph of an explicit function by its formula string.
+		 * @param	functionString formula string
+		 * @param	varName independent variable name
+		 * @param	lineColor color of the graph
+		 * @param	reverse if the independent variable is y
+		 */
 		public function drawFunction(functionString:String,varName:String="x", lineColor:uint = 0xff000000, reverse:Boolean = false):void {
 			var func:Object = new Object();
 			var parser:DParser=new DParser(functionString, [varName]);
@@ -595,11 +648,18 @@ package org.DWater.charts
 			_bmdX = x;
 			_bmdY = y;
 		}
+		/**
+		 * Clear the function graph by its index.
+		 * @param	index
+		 */
 		public function clearFunctionAt(index:uint):void {
 			_funcs.splice(index, 1);
 			_changed = true;
 			_contentChanged = true;
 		}
+		/**
+		  *Clear the coordinate canvas.
+		 */
 		public function clearCanvas():void {
 			_funcs = [];
 			_canvasBMD.lock()

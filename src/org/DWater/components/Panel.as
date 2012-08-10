@@ -7,7 +7,7 @@ package org.DWater.components
 	import org.DWater.skin.Style;
 	
 	/**
-	 * ...
+	 * Panel is often used to organize components.
 	 * @author Dong Dong
 	 */
 	public class Panel extends ContainerComponent 
@@ -41,6 +41,9 @@ package org.DWater.components
 			_scrollRect = new Rectangle();
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -75,6 +78,9 @@ package org.DWater.components
 			_scrollRect.width = _rectWidth-2*_styleObject.margin;
 			_scrollRect.height = _rectHeight-2*_styleObject.margin;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			_hSlider.addEventListener(Event.CHANGE, onScroll);
@@ -89,6 +95,9 @@ package org.DWater.components
 			_inner.x = -_scrollRect.x;
 			_inner.y = -_scrollRect.y;
 		}
+		/**
+		 * @private
+		 */
 		override protected function update(evt:Event):void {
 			if (_scrollRect.height< _inner.height) {
 				if (!contains(_vSlider)) {
@@ -118,6 +127,9 @@ package org.DWater.components
 			}
 			super.update(evt);
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			_mask.graphics.clear();
@@ -155,19 +167,31 @@ package org.DWater.components
 			_hSlider.y = _vSlider.height;
 			_changed = true;
 		}
+		/**
+		 * add new component to this panel, you should call this function instead of call addChild()
+		 */
 		override public function addComponent(component:DisplayObject):Boolean {
 			var result:Boolean = _inner.addComponent(component);
 			_changed = true;
 			return true;
 		}
+		/**
+		 * add new component to this panel, you should call this function instead of call removeChild()
+		 */
 		override public function removeComponent(component:DisplayObject):Boolean {
 			var result:Boolean = _inner.removeComponent(component);
 			_changed = true;
 			return result;
 		}
+		/**
+		 * return if this panel contains a specific child, you should call this function instead of call contains()
+		 */
 		public function containComponent(child:DisplayObject):Boolean {
 			return _inner.contains(child);
 		}
+		/**
+		 * back color of this panel
+		 */
 		public function get backColor():uint {
 			return _backColor;
 		}
@@ -175,6 +199,9 @@ package org.DWater.components
 			_backColor = value;
 			_changed = true;
 		}
+		/**
+		 * border color of this panel
+		 */
 		public function get borderColor():uint {
 			return _borderColor;
 		}
@@ -182,6 +209,9 @@ package org.DWater.components
 			_borderColor = value;
 			_changed = true;
 		}
+		/**
+		 * line strength of the border of this panel
+		 */
 		public function get borderStrength():Number {
 			return _borderStrength;
 		}
@@ -189,6 +219,9 @@ package org.DWater.components
 			_borderStrength = value;
 			_changed = true;
 		}
+		/**
+		 * if this panel should show border
+		 */
 		public function get border():Boolean {
 			return _border;
 		}

@@ -11,7 +11,7 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	
 	/**
-	 * ...
+	 * TextArea if often used to type in multi line text.
 	 * @author Dong Dong
 	 */
 	public class TextArea extends Component 
@@ -21,7 +21,6 @@ package org.DWater.components
 		private var _textField:TextField;
 		private var _focused:Boolean;
 		private var _slider:Slider;
-		
 		private var _scrollRect:Rectangle;
 		public function TextArea(parent:Sprite, x:Number, y:Number, text:String = "") 
 		{
@@ -40,6 +39,9 @@ package org.DWater.components
 			super(parent, x, y);
 			this.text = text;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			_textField.addEventListener(FocusEvent.FOCUS_IN, onFocus);
@@ -58,6 +60,9 @@ package org.DWater.components
 				_focused = false;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function update(evt:Event):void {
 			if (_textField.height< _textField.textHeight) {
 				if (!contains(_slider)) {
@@ -73,6 +78,9 @@ package org.DWater.components
 			}
 			super.update(evt);
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			if (_focused) {
@@ -84,7 +92,6 @@ package org.DWater.components
 			graphics.drawRect(0, 0, _rectWidth, _rectHeight);
 			graphics.endFill();
 		}
-		
 		override public function set width(value:Number):void {
 			_textField.width = value-_slider.width-2*_styleObject.paddingX;
 			_rectWidth = value;
@@ -100,6 +107,9 @@ package org.DWater.components
 			_scrollRect.height = _textField.height;
 			_changed = true;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -124,12 +134,18 @@ package org.DWater.components
 			_slider.x = _rectWidth - _slider.width;
 			_slider.height = _rectHeight;
 		}
+		/**
+		 * @copy InputText#text
+		 */
 		public function get text():String {
 			return _textField.text;
 		}
 		public function set text(value:String):void {
 			_textField.text = value;
 		}
+		/**
+		 * @copy InputText#password
+		 */
 		public function get password():Boolean {
 			return _textField.displayAsPassword;
 		}

@@ -9,11 +9,11 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	import org.DWater.events.DWaterSelectedEvent;
 	
+	[Event(name = "select", type = "org.DWater.events.DWaterSelectedEvent")]
 	/**
-	 * ...
+	 * Checkbox is often used as swith.
 	 * @author Dong Dong
 	 */
-	[Event(name = "select", type = "org.DWater.events")]
 	public class CheckBox extends Component 
 	{	
 		private var _textField:TextField;
@@ -38,6 +38,9 @@ package org.DWater.components
 			super(parent, x, y);
 			this.data = data;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			super.refreshStyle();
 			_textFormat.font = _styleObject.fontName;
@@ -47,6 +50,9 @@ package org.DWater.components
 			_rectWidth = _rectHeight = 0;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var offset:Number = (_styleObject.outerSize-_styleObject.innerSize) / 2;
@@ -72,24 +78,35 @@ package org.DWater.components
 			_textField.x = _styleObject.outerSize + _styleObject.padding;
 			_textField.y = (_styleObject.outerSize-_textField.textHeight) / 2-2;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(MouseEvent.CLICK, onMouse);
 		}
-		protected function onMouse(evt:MouseEvent):void {
+		private function onMouse(evt:MouseEvent):void {
 			switch(evt.type) {
 				case MouseEvent.CLICK:
 					selected = !_selected;
 					break;
 			}
 		}
-		
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * label of the checkBox item
+		 */
 		public function get label():String {
 			return _text;
 		}
@@ -98,6 +115,9 @@ package org.DWater.components
 			_text = value;
 			_changed=true;
 		}
+		/**
+		 * @copy Button#enabled
+		 */
 		public function get enabled():Boolean {
 			return _enabled;
 		}
@@ -112,6 +132,9 @@ package org.DWater.components
 			}
 			_changed=true;
 		}
+		/**
+		 * if the checkbox item is selected
+		 */
 		public function get selected():Boolean {
 			return _selected;
 		}
@@ -120,6 +143,9 @@ package org.DWater.components
 			dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.SELECT,-1,_data));
 			_changed=true;
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#data
+		 */
 		public function get data():Object {
 			return _data;
 		}

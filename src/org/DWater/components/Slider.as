@@ -8,9 +8,9 @@ package org.DWater.components
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
-	
+	[Event(name = "change", type = "flash.events.Event")]
 	/**
-	 * ...
+	 * Slider is often used to change value or display the change of value.
 	 * @author Dong Dong
 	 */
 	public class Slider extends Component 
@@ -18,8 +18,13 @@ package org.DWater.components
 		private static const UP:String = "up";
 		private static const OVER:String = "over";
 		private static const DOWN:String = "down";
-		
+		/**
+		 * @copy RadioButtonGroup#HORIZON
+		 */
 		public static const HORIZON:String = "horizon";
+		/**
+		 * @copy RadioButtonGroup#VERTICAL
+		 */
 		public static const VERTICAL:String = "vertical";
 		
 		private var _direction:String;
@@ -72,6 +77,9 @@ package org.DWater.components
 			super(parent, x, y);
 			this.direction = direction;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -90,6 +98,9 @@ package org.DWater.components
 			_minText.defaultTextFormat = _textFormat;
 			_maxText.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			_controlBar.graphics.clear();
@@ -170,6 +181,9 @@ package org.DWater.components
 				}
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			
@@ -236,9 +250,15 @@ package org.DWater.components
 					break;
 			}
 		}
+		/**
+		 * @copy NumberStepper#reset()
+		 */
 		public function reset():void {
 			value = _defaultValue;
 		}
+		/**
+		 * if this slider should show the current value with textFields
+		 */
 		public function get showValue():Boolean {
 			return _showValue;
 		}
@@ -279,6 +299,9 @@ package org.DWater.components
 			_showValue = value;
 			_changed = true;
 		}
+		/**
+		 * if this slider should show the current value with a label
+		 */
 		public function get showLabel():Boolean {
 			return _showLabel;
 		}
@@ -295,7 +318,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
-		
+		/**
+		 * if this slider should show the change of the value in real time
+		 */
 		public function get liveDrag():Boolean {
 			return _liveDrag;
 		}
@@ -334,7 +359,9 @@ package org.DWater.components
 			}
 			_changed=true;
 		}
-		
+		/**
+		 * @copy NumberStepper#minValue
+		 */
 		public function get minValue():Number {
 			return _minValue;
 		}
@@ -346,6 +373,9 @@ package org.DWater.components
 			_minText.text = value.toString();
 			_changed = true;
 		}
+		/**
+		 * @copy NumberStepper#maxValue
+		 */
 		public function get maxValue():Number {
 			return _maxValue;
 		}
@@ -357,6 +387,9 @@ package org.DWater.components
 			_maxText.text = value.toString();
 			_changed = true;
 		}
+		/**
+		 * @copy NumberStepper#value
+		 */
 		public function get value():Number {
 			return _value;
 		}
@@ -370,6 +403,9 @@ package org.DWater.components
 			_value = num;
 			_changed = true;
 		}
+		/**
+		 * @copy NumberStepper#defaultValue
+		 */
 		public function get defaultValue():Number {
 			return _defaultValue;
 		}
@@ -378,6 +414,9 @@ package org.DWater.components
 				_defaultValue = Math.min(Math.max(_minValue, value), _maxValue);
 			}
 		}
+		/**
+		 * @copy RadioButtonGroup#direction
+		 */
 		public function get direction():String {
 			return _direction;
 		}

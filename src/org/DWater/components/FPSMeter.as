@@ -10,7 +10,7 @@ package org.DWater.components
 	import flash.utils.getTimer;
 	
 	/**
-	 * ...
+	 * FPSMeter is used to detect the performance of your program.
 	 * @author Dong Dong
 	 */
 	public class FPSMeter extends Component 
@@ -42,6 +42,9 @@ package org.DWater.components
 			_usedMemories = new Vector.<Number>();
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -57,6 +60,9 @@ package org.DWater.components
 			_textFormat.align = TextFormatAlign.RIGHT;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var frameRate:Number = stage.frameRate;
@@ -94,6 +100,9 @@ package org.DWater.components
 				_textField.y = 0;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function update(evt:Event):void {
 			var t:int = getTimer();
 			var dt:int = t - _milliseconds;
@@ -112,22 +121,37 @@ package org.DWater.components
 			_changed = true;
 			super.update(evt);
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * start the fps detector
+		 */
 		public function start():void {
 			if (!hasEventListener(Event.ENTER_FRAME)) {
 				addEventListener(Event.ENTER_FRAME, update);
 			}
 		}
+		/**
+		 * stop the fps detector
+		 */
 		public function stop():void {
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, update);
 			}
 		}
+		/**
+		 * if there should be a chart to show detector result
+		 */
 		public function get showChart():Boolean {
 			return _showChart;
 		}
@@ -138,15 +162,27 @@ package org.DWater.components
 			_showChart = value;
 			_changed = true;
 		}
+		/**
+		 * frequent of the program in miliseconds
+		 */
 		public function get frequent():Number {
 			return _frequent;
 		}
+		/**
+		 * total memory assignning to the program
+		 */
 		public function get totalMemory():Number {
 			return _totalMemory;
 		}
+		/**
+		 * memory used by the program
+		 */
 		public function get usedMemory():Number {
 			return _usedMemory;
 		}
+		/**
+		 * prefix of the fps detector textField
+		 */
 		public function get prefix():String {
 			return _prefix;
 		}

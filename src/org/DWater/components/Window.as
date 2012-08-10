@@ -12,7 +12,7 @@ package org.DWater.components
 	import org.DWater.skin.Style;
 	
 	/**
-	 * ...
+	 * Window is often used to organize components.
 	 * @author Dong Dong
 	 */
 	public class Window extends ContainerComponent
@@ -58,6 +58,9 @@ package org.DWater.components
 			hasMinimizeButton = true;
 			minimize = false;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -92,6 +95,9 @@ package org.DWater.components
 			_closeButtonRect.width = _styleObject.buttonWidth+2*_styleObject.lineStrength;
 			_closeButtonRect.height=_styleObject.buttonHeight+2*_styleObject.lineStrength;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			graphics.beginFill(_styleObject.backColor);
@@ -180,6 +186,9 @@ package org.DWater.components
 				_textField.y = (_styleObject.titleHeight-_textField.height + _styleObject.margin) / 2;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouse);
@@ -222,12 +231,21 @@ package org.DWater.components
 			}
 			return item;
 		}
+		/**
+		 * @copy Panel#addComponent()
+		 */
 		override public function addComponent(component:DisplayObject):Boolean {
 			return _content.addComponent(component);
 		}
+		/**
+		 * @copy Panel#removeComponent()
+		 */
 		override public function removeComponent(component:DisplayObject):Boolean {
 			return _content.removeComponent(component);
 		}
+		/**
+		 * @copy Panel#containComponent()
+		 */
 		public function containComponent(child:DisplayObject):Boolean {
 			return _content.containComponent(child);
 		}
@@ -249,6 +267,9 @@ package org.DWater.components
 			_rectHeight = _content.rectHeight + _styleObject.titleHeight+_styleObject.margin;
 			_changed = true;
 		}
+		/**
+		 * if this window should show a close button to close this window
+		 */
 		public function get hasCloseButton():Boolean {
 			return _hasCloseButton;
 		}
@@ -261,6 +282,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * if this window should show a minimize button to minimize this window
+		 */
 		public function get hasMinimizeButton():Boolean {
 			return _hasMinimizeButton;
 		}
@@ -273,6 +297,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * if this window should display in minimize
+		 */
 		public function get minimize():Boolean {
 			return _minimize;
 		}
@@ -280,12 +307,18 @@ package org.DWater.components
 			_minimize = value;
 			_changed = true;
 		}
+		/**
+		 * if this window can be dragged
+		 */
 		public function get draggable():Boolean {
 			return _draggable;
 		}
 		public function set draggable(value:Boolean):void {
 			_draggable = value;
 		}
+		/**
+		 * title of this window
+		 */
 		public function get title():String {
 			return _title;
 		}
@@ -295,6 +328,9 @@ package org.DWater.components
 			width = width;
 			_changed = true;
 		}
+		/**
+		 * content panel of this window
+		 */
 		public function get content():Panel {
 			return _content;
 		}

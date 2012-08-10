@@ -13,34 +13,44 @@ package org.DWater.skin
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	import org.DWater.components.ColorChooser;
-	import org.DWater.components.Component;
 	
+	[Event(name = "change", type = "flash.events.Event")]
 	/**
-	 * ...
+	 * Style class is a singleton so you shouldn't try to create a new style. If you want to change the current skin style for your component,
+	 * just call the setStyle() function and pass the theme name to it. 
 	 * @author dongdong
 	 */
-	[Event(name = "change", type = "flash.events.Event")]
+	
 	public class Style extends EventDispatcher
 	{
 		[Embed(source = "/../assets/font.ttf", embedAsCFF = "false", fontName = "ZHSCNMT-GBK", mimeType = "application/x-font",unicodeRange="U+0020,U+0041-005A,U+0020,U+0061-007A,U+0030-0039,U+002E,U+0020-002F,U+003A-0040,U+005B-0060,U+007B-007E,U+0020-002F,U+0030-0039,U+003A-0040,U+0041-005A,U+005B-0060,U+0061-007A,U+007B-007E")]
-		protected var _DFont:Class;
+		private var _DFont:Class;
 		
 		public static const WATER:String = "water";
 		
 		private static var _instantce:Style;
 		private var _styleDictionary:Object;
+		/**
+		 * You shouldn't call the constructor because this class is a singleton.
+		 */
 		public function Style(_hide:Function):void {
 			if (!_hide||_hide!=hide) {
 				throw new Error("This class is a singleton.");
 			}
 			Font.registerFont(_DFont);
 		}
+		/**
+		 * @private
+		 */
 		public function getStyleByName(componentName:String):Object {
 			return _styleDictionary[componentName];
 		}
 		private static function hide():void {
 			
 		}
+		/**
+		 * @return The singleton object for this class.
+		 */
 		public static function get instance():Style {
 			if (!_instantce) {
 				_instantce = new Style(hide);
@@ -48,6 +58,13 @@ package org.DWater.skin
 			}
 			return _instantce;
 		}
+		/**
+		 * Set the style for your component, the default style is WATER.
+		 * <p>For example: Style.instance.setStyle(Style.WATER);</p>
+		 * <p>There is only one theme "WATER" being available now. </p>
+		 * @param	styleName The style name you want to set.
+		 * @see #WATER
+		 */
 		public function setStyle(styleName:String):void {
 			_styleDictionary = new Object();
 			var styleObject:Object;

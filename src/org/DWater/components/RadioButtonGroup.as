@@ -3,23 +3,28 @@ package org.DWater.components
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import org.DWater.events.DWaterSelectedEvent;
-	
+	[Event(name = "select", type = "org.DWater.events.DWaterSelectedEvent")]
 	/**
-	 * ...
+	 * RadioButtonGroup is often used to make choice, you can only choose one item in a radioButton group. Besides, you shouldn't
+	 *  use this component without RadioButton.
 	 * @author Dong Dong
 	 */
 	public class RadioButtonGroup extends Component 
 	{
+		/**
+		 * place the radioButton in horizon layout
+		 */
 		public static const HORIZON:String = "horizon";
+		/**
+		 * place the radioButton in vertical layout
+		 */
 		public static const VERTICAL:String = "vertical";
 		private var _direction:String;
-		
 		private var _enabled:Boolean;
 		private var _selectedIndex:int;
 		private var _selectedItem:RadioButton;
 		private var _group:Vector.<RadioButton>;
 		private var _data:Array;
-		
 		private var _padding:Number;
 		public function RadioButtonGroup(parent:Sprite, x:Number, y:Number,direction:String="vertical",data:Array=null) 
 		{
@@ -31,11 +36,16 @@ package org.DWater.components
 			this.direction = direction;
 			super(parent, x, y);
 		}
-		
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			super.refreshStyle();
 			_padding = _styleObject.padding;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var tempRadioButton:RadioButton;
@@ -69,7 +79,7 @@ package org.DWater.components
 				}
 			}
 		}
-		protected function onMouse(evt:MouseEvent):void {
+		private function onMouse(evt:MouseEvent):void {
 			switch(evt.type) {
 				case MouseEvent.CLICK:
 					var tempRadioButton:RadioButton;
@@ -84,12 +94,21 @@ package org.DWater.components
 					break;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * @copy Button#enabled
+		 */
 		public function get enabled():Boolean {
 			return _enabled;
 		}
@@ -106,7 +125,10 @@ package org.DWater.components
 				}
 			}
 		}
-		public function getItemAt(index:int):Object {
+		/**
+		 * @copy org.DWater.charts.BarChart#getItemAt()
+		 */
+		public function getItemAt(index:uint):Object {
 			var a:uint = _data.length;
 			if (index>=0&&index<a) {
 				return _data[index];
@@ -114,7 +136,10 @@ package org.DWater.components
 				return null;
 			}
 		}
-		public function addItemAt(value:Object, index:int):void {
+		/**
+		 * @copy org.DWater.charts.BarChart#addItemAt()
+		 */
+		public function addItemAt(value:Object, index:uint):void {
 			var a:uint = _data.length;
 			if (index>=0&&index<a) {
 				_data.splice(index, 0, value);
@@ -126,7 +151,10 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
-		public function removeItemAt(index:int):Object {
+		/**
+		 * @copy org.DWater.charts.BarChart#removeItemAt()
+		 */
+		public function removeItemAt(index:uint):Object {
 			var a:uint = _data.length;
 			if (index >= 0 && index < a) {
 				var data:Object;
@@ -140,13 +168,17 @@ package org.DWater.components
 				return null;
 			}
 		}
+		/*
 		public function setItemAt(value:Object, index:int):void {
 			var a:uint = _data.length;
 			if (index >= 0 && index < a) {
 				_data[index] = value;
 				_group[index].data = value;
 			}
-		}
+		}*/
+		/**
+		 * @copy org.DWater.charts.BarChart#addItem()
+		 */
 		public function addItem(value:Object):void {
 			_data.push(value);
 			var tempRadioButton:RadioButton = new RadioButton(this, 0, 0, value);
@@ -156,6 +188,9 @@ package org.DWater.components
 			_group.push(tempRadioButton);
 			_changed = true;
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#removeItem()
+		 */
 		public function removeItem(value:Object):void {
 			var index:int = _data.indexOf(value);
 			var a:uint = _data.length;
@@ -168,6 +203,9 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * @copy List#selectedIndex
+		 */
 		public function get selectedIndex():int{
 			return _selectedIndex;
 		}
@@ -184,7 +222,6 @@ package org.DWater.components
 				_selectedItem.selected = true;
 				dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.SELECT, value, _data[value]));
 			}
-			
 		}
 		public function get selectedItem():Object {
 			return _selectedItem;
@@ -204,6 +241,9 @@ package org.DWater.components
 				dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.SELECT, index, _data[index]));
 			}
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#data
+		 */
 		public function get data():Array {
 			return _data;
 		}
@@ -235,6 +275,9 @@ package org.DWater.components
 			_data = value;
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#padding
+		 */
 		public function get padding():Number {
 			return _padding;
 		}
@@ -242,6 +285,9 @@ package org.DWater.components
 			_padding = value;
 			_changed = true;
 		}
+		/**
+		 * layout direction of this component
+		 */
 		public function get direction():String {
 			return _direction;
 		}

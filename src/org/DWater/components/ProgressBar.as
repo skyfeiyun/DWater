@@ -6,7 +6,7 @@ package org.DWater.components
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	/**
-	 * ...
+	 * ProgressBar is often used to show progress in program.
 	 * @author Dong Dong
 	 */
 	public class ProgressBar extends Component 
@@ -26,6 +26,9 @@ package org.DWater.components
 			super(parent, x, y);
 			_textField.text = "0%";
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			super.refreshStyle();
 			_textFormat.font = _styleObject.fontName;
@@ -34,6 +37,9 @@ package org.DWater.components
 			_textFormat.align = TextFormatAlign.LEFT;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			
@@ -67,12 +73,21 @@ package org.DWater.components
 			_textField.x = -_textField.width / 2;
 			_textField.y = -_textField.height/ 2;
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * percent of this progressBar
+		 */
 		public function set percent(value:uint):void {
 			_percent = value % 100;
 			_textField.text = _percent.toString()+"%";

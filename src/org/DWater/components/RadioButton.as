@@ -9,7 +9,8 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	import org.DWater.events.DWaterSelectedEvent;
 	/**
-	 * ...
+	 * RadioButton is often used to make choice, you can only choose one item in a radioButton group. Besides, you shouldn't
+	 *  use this component without RadioButtonGroup.
 	 * @author Dong Dong
 	 */
 	public class RadioButton extends Component 
@@ -38,6 +39,9 @@ package org.DWater.components
 			super(parent, x, y);
 			this.data = data;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			super.refreshStyle();
 			_textFormat.font = _styleObject.fontName;
@@ -47,6 +51,9 @@ package org.DWater.components
 			_rectWidth = _rectHeight = 0;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			if (_enabled) {
@@ -71,12 +78,21 @@ package org.DWater.components
 			_textField.x = 2*_styleObject.outerSize + _styleObject.padding;
 			_textField.y = (2*_styleObject.outerSize-_textField.textHeight) / 2-2;
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * label text shown on this radioButton
+		 */
 		public function get label():String {
 			return _text;
 		}
@@ -88,6 +104,9 @@ package org.DWater.components
 			_text = value;
 			_changed=true;
 		}
+		/**
+		 * @copy Button#enabled
+		 */
 		public function get enabled():Boolean {
 			return _enabled;
 		}
@@ -102,6 +121,9 @@ package org.DWater.components
 			}
 			_changed=true;
 		}
+		/**
+		 * @private
+		 */
 		internal function get selected():Boolean {
 			return _selected;
 		}
@@ -109,6 +131,9 @@ package org.DWater.components
 			_selected = value;
 			_changed=true;
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#data
+		 */
 		public function get data():Object {
 			return _data;
 		}
@@ -116,6 +141,9 @@ package org.DWater.components
 			_data = value;
 			label = _data.label;
 		}
+		/**
+		 * group which this radioButton belongs to
+		 */
 		public function get group():RadioButtonGroup {
 			return _group;
 		}

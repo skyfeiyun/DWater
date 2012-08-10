@@ -5,7 +5,7 @@ package org.DWater.components
 	import flash.geom.Rectangle;
 	
 	/**
-	 * ...
+	 * VGroup is often used for vertical layout.
 	 * @author Dong Dong
 	 */
 	public class VGroup extends ContainerComponent 
@@ -36,6 +36,9 @@ package org.DWater.components
 			_equalPadding = true;
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -49,6 +52,9 @@ package org.DWater.components
 				_padding = _styleObject.padding;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var i:int;
@@ -133,6 +139,9 @@ package org.DWater.components
 				}
 			}
 		}
+		/**
+		 * @copy HGroup#getItemAt()
+		 */
 		public function getItemAt(index:uint):DisplayObject {
 			if (index>=_children.length) {
 				return null;
@@ -140,11 +149,17 @@ package org.DWater.components
 				return _children[index];
 			}
 		}
+		/**
+		 * @copy HGroup#addItem()
+		 */
 		public function addItem(item:DisplayObject):void {
 			_children.push(item);
 			addComponent(item);
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#removeItem()
+		 */
 		public function removeItem(item:DisplayObject):void {
 			var index:int = _children.indexOf(item);
 			if (index!=-1) {
@@ -152,6 +167,9 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * @copy HGroup#addItemAt()
+		 */
 		public function addItemAt(item:DisplayObject, index:uint):void {
 			if (index>=_children.length) {
 				return;
@@ -160,6 +178,9 @@ package org.DWater.components
 			addComponent(item);
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#removeItemAt()
+		 */
 		public function removeItemAt(index:uint):void {
 			if (index>=_children.length) {
 				return;
@@ -167,6 +188,9 @@ package org.DWater.components
 			removeComponent(_children.splice(index, 1)[0]);
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#removeAll()
+		 */
 		public function removeAll():void {
 			var a:uint = _children.length;
 			for (var i:uint = 0; i < a;i++ ) {
@@ -174,6 +198,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#padding
+		 */
 		public function get padding():Number {
 			return _padding;
 		}
@@ -183,6 +210,9 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * if this hGroup has a fixed height
+		 */
 		public function get fixedHeight():Boolean {
 			return _fixedHeight;
 		}
@@ -190,6 +220,9 @@ package org.DWater.components
 			_fixedHeight = value;
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#align
+		 */
 		public function get align():String {
 			return _align;
 		}
@@ -197,6 +230,9 @@ package org.DWater.components
 			_align = value;
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#equalPadding
+		 */
 		public function get equalPadding():Boolean {
 			return _equalPadding;
 		}

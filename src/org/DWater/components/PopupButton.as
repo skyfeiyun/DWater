@@ -8,8 +8,9 @@ package org.DWater.components
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	import org.DWater.events.DWaterSelectedEvent;
+	[Event(name = "select", type = "org.DWater.events.DWaterSelectedEvent")]
 	/**
-	 * ...
+	 * PopupButton is often used to make choice.
 	 * @author Dong Dong
 	 */
 	public class PopupButton extends Component 
@@ -53,6 +54,9 @@ package org.DWater.components
 			this.data = data;
 			this.selectedIndex = selectedIndex;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -72,6 +76,9 @@ package org.DWater.components
 			_textFormat.align = TextFormatAlign.LEFT;
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var a:uint;
@@ -151,6 +158,9 @@ package org.DWater.components
 			_textField.setTextFormat(_textFormat);
 			
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(MouseEvent.MOUSE_OVER, onMouse);
@@ -163,9 +173,12 @@ package org.DWater.components
 			minimize = true;
 			if (evt.index >= 0) {
 				selectedIndex = evt.index;
-				dispatchEvent(evt.clone());
+				dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.SELECT, selectedIndex, getItemAt(selectedIndex)));
 			}
 		}
+		/**
+		 * @private
+		 */
 		protected function onMouse(evt:MouseEvent):void {
 			switch(evt.type) {
 				case MouseEvent.MOUSE_OVER:
@@ -205,6 +218,9 @@ package org.DWater.components
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * @copy Button#enabled
+		 */
 		public function get enabled():Boolean {
 			return _enabled;
 		}
@@ -219,27 +235,48 @@ package org.DWater.components
 			}
 			_changed=true;
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#getItemAt()
+		 */
 		public function getItemAt(index:uint):Object {
 			return _list.getItemAt(index);
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#addItem()
+		 */
 		public function addItem(value:Object):void {
 			_list.addItem(value);
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#removeItem()
+		 */
 		public function removeItem(value:Object):void {
 			_list.removeItem(value);
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#addItemAt()
+		 */
 		public function addItemAt(value:Object,index:uint):void {
 			_list.addItemAt(value, index);
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#removeItemAt()
+		 */
 		public function removeItemAt(index:uint):void {
 			_list.removeItemAt(index);
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#data
+		 */
 		public function get data():Array {
 			return _data;
 		}
 		public function set data(value:Array):void {
 			_list.data = value;
 		}
+		/**
+		 * @copy List#selectedIndex
+		 */
 		public function get selectedIndex():int {
 			return _selectedIndex;
 		}
@@ -257,6 +294,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * if this popUpButton should display in minimize
+		 */
 		public function get minimize():Boolean {
 			return _minimize;
 		}

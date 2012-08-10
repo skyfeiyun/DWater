@@ -2,7 +2,9 @@ package org.DWater.utils.DCalculator
 {
 	import org.DWater.utils.DCalculator.module.*;
 	/**
-	 * ...
+	 * DParser is a Class for formula parsing. You can simply create a DParser Object, 
+	 * pass your formula string to DParser compiler. After compiling this formula you can pass
+	 *  the value of variable to the function calculate() to calculate the result.
 	 * @author ...
 	 */
 	public class DParser 
@@ -15,8 +17,17 @@ package org.DWater.utils.DCalculator
 		private var _constSheet:Array = [ { name:"pi", value:Math.PI }, { name:"e", value:Math.E } ];
 		private var _splitToken:Queue;
 		
-		
 		private var tokenAuto:Automaton;
+		
+		/**
+		 * Create a new formula parser, for one formula you need one parser related to it. The formula string is not case sensitive.
+		 * @param	originCommand A formula String you should pass to the constructor, such as x*x+3, these operator 
+		 * is support in the parser:
+			 * <p>+(add), -(substract), *(multiple), /(divide), ^(pow), abs, acos, asin, atan, sin, cos, tan, floor, ceil,
+			 * round, max, min, log(base 2).
+			 * </p>
+		 * @param	paramName If your formula string contains a series of variable. Pass the varibale name using array of string.
+		 */
 		public function DParser(originCommand:String,paramName:Array) {
 			tokenAuto = Automaton.createToken();
 			_funcSheet.sortOn("priority", Array.NUMERIC | Array.DESCENDING);
@@ -24,6 +35,20 @@ package org.DWater.utils.DCalculator
 			_paramName = paramName;
 			_compiledCommand = compileOrigin(_originCommand);
 		}
+		/**
+		 * 
+		 * @param	paramArray The variable parameters array. For example, if you have 2 variable x=1,y=2,
+		 * 			you should pass the variable using this format:[{name:"x",value:1},{name:"y",value:2}]
+		 * @return The result of this formula.
+		 * 
+		 *  * @example The following code show how to calculate the formula "x*x+y*y":
+			 * <listing version="3.0">
+			 * var parser:DParser=new DParser("x*x+y*y",["x","y"]);
+			 * var result:Number;
+			 * result=parser.calculate([{name:"x",value:3},{name:"y",value:4}]);
+			 * trace(3,"*",3,"+",4,"*",4,"=",result);
+			 * </listing>
+		 */
 		public function calculate(paramArray:Array):Number {
 			_pramArray = paramArray;
 			var tempStack:Array = new Array();

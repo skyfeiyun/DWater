@@ -12,8 +12,10 @@ package org.DWater.components
 	import org.DWater.events.DWaterSelectedEvent;
 	import org.DWater.skin.Style;
 	
+	[Event(name = "item_click", type = "org.DWater.events.DWaterSelectedEvent")]
+	[Event(name = "item_double_click", type = "org.DWater.events.DWaterSelectedEvent")]
 	/**
-	 * ...
+	 * List is often used to list elements.
 	 * @author Dong Dong
 	 */
 	public class List extends ContainerComponent 
@@ -58,6 +60,9 @@ package org.DWater.components
 			super(parent, x, y);
 			this.data = data;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -87,6 +92,9 @@ package org.DWater.components
 			_textFormat.color = _styleObject.fontColor;
 			_textFormat.align = TextFormatAlign.LEFT;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			_vSlider.addEventListener(Event.CHANGE, onScroll);
@@ -136,10 +144,16 @@ package org.DWater.components
 			}
 			return item;
 		}
+		/**
+		 * @private
+		 */
 		override protected function update(evt:Event):void {
 			_changed = true;
 			super.update(evt);
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			if (_scrollRect.height< _inner.height) {
@@ -201,7 +215,6 @@ package org.DWater.components
 				_inner.offsetY = (_itemHeight-_inner.getItemAt(0).height) / 2;
 			}
 		}
-		
 		override public function set width(value:Number):void {
 			var minWidth:Number = _sliderStyle.barHeight;
 			if (value < minWidth) {
@@ -253,6 +266,9 @@ package org.DWater.components
 				return new _renderItem(value);
 			}
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#getItemAt()
+		 */
 		public function getItemAt(index:uint):Object {
 			if (index>=_data.length) {
 				return null;
@@ -260,12 +276,18 @@ package org.DWater.components
 				return _data[index];
 			}
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#addItem()
+		 */
 		public function addItem(value:Object):void {
 			var item:DisplayObject = generateItemByClass(value);
 			_inner.addItem(item);
 			_data.push(value);
 			_changed = true;
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#removeItem()
+		 */
 		public function removeItem(value:Object):void {
 			var index:int = _data.indexOf(value);
 			if (index != -1) {
@@ -274,23 +296,34 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#addItemAt()
+		 */
 		public function addItemAt(value:Object, index:uint):void {
 			var item:DisplayObject = generateItemByClass(value);
 			_inner.addItemAt(item, index);
 			_data.splice(index, 0, value);
 			_changed = true;
 		}
+		/**
+		 * @copy org.DWater.charts.BarChart#removeItemAt()
+		 */
 		public function removeItemAt(index:uint):void {
 			_data.splice(index, 1);
 			_inner.removeItemAt(index);
 			_changed = true;
 		}
+		/**
+		 * @copy HGroup#removeAll()
+		 */
 		public function removeAll():void {
 			_inner.removeAll();
 			_data = [];
 			_changed = true;
 		}
-		
+		/**
+		 * @copy org.DWater.charts.BarChart#data
+		 */
 		public function get data():Array {
 			return _data;
 		}
@@ -307,6 +340,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * height of each item
+		 */
 		public function get itemHeight():Number {
 			return _itemHeight;
 		}
@@ -315,6 +351,11 @@ package org.DWater.components
 			_inner.padding = value;
 			_changed = true;
 		}
+		/**
+		 * item to be rendered in the list, if you need two use other items instead of TextField in the list,
+		 *  just pass the Class object to this parameter, this render item Class should accept an value object 
+		 * as the parameter in its constructor
+		 */
 		public function get renderItem():Class {
 			return _renderItem;
 		}
@@ -329,6 +370,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * index of the selected item
+		 */
 		public function get selectedIndex():int {
 			return _selectedIndex;
 		}
@@ -338,6 +382,9 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * if this list should show border
+		 */
 		public function get border():Boolean {
 			return _border;
 		}

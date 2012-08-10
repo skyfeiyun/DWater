@@ -8,11 +8,13 @@ package org.DWater.charts
 	import flash.text.TextFormatAlign;
 	import org.DWater.components.Component;
 	import org.DWater.events.DWaterSelectedEvent;
+	
+	[Event(name = "item_click", type = "org.DWater.events.DWaterSelectedEvent")]
+	[Event(name = "item_double_click", type = "org.DWater.events.DWaterSelectedEvent")]
 	/**
-	 * ...
+	 * FlowChart is often used to show workflow. 
 	 * @author Dong Dong
 	 */
-	[Event(name = "select", type = "org.DWater.events.DWaterEvent")]
 	public class FlowChart extends Component
 	{
 		private var _charts:Vector.<Sprite>;
@@ -21,10 +23,10 @@ package org.DWater.charts
 		private var _idealWidth:Vector.<Number>;
 		private var _textFormat2:TextFormat;
 		
-		private var _datas:Array;
+		private var _data:Array;
 		
 		private var _overIndex:int;
-		public function FlowChart(parent:Sprite, x:Number, y:Number,datas:Array) 
+		public function FlowChart(parent:Sprite, x:Number, y:Number,data:Array) 
 		{
 			_textFormat = new TextFormat();
 			_textFormat2 = new TextFormat();
@@ -34,8 +36,11 @@ package org.DWater.charts
 			_overIndex = -1;
 			_name = "FlowChart";
 			super(parent, x, y);
-			this.datas = datas;
+			this.data = data;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -51,6 +56,9 @@ package org.DWater.charts
 			_textFormat.color = _styleObject.fontUpColor;
 			_textFormat2.color = _styleObject.fontOverColor;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var a:uint = _textFields.length;
@@ -94,6 +102,9 @@ package org.DWater.charts
 				_charts[i].graphics.endFill();
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(MouseEvent.MOUSE_OUT, onItem);
@@ -103,25 +114,36 @@ package org.DWater.charts
 				_overIndex = -1;
 			}else if (evt.type==MouseEvent.MOUSE_OVER) {
 				_overIndex = _charts.indexOf(evt.target);
-			}else if (evt.type==MouseEvent.MOUSE_DOWN) {
-				dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.SELECT, _charts.indexOf(evt.target)));
+			}else if (evt.type==MouseEvent.CLICK) {
+				dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.ITEM_CLICK, _charts.indexOf(evt.target)));
+			}else if (evt.type==MouseEvent.DOUBLE_CLICK) {
+				dispatchEvent(new DWaterSelectedEvent(DWaterSelectedEvent.ITEM_DOUBLE_CLICK, _charts.indexOf(evt.target)));
 			}
 			_changed = true;
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * @copy BarChart#addItemAt()
+		 */
 		public function addItemAt(value:Object, index:uint):void {
-			if (!_datas) {
-				_datas = [];
+			if (!_data) {
+				_data = [];
 			}
-			if (index>=_datas.length) {
+			if (index>=_data.length) {
 				return;
 			}
-			_datas.splice(index, 0, value);
+			_data.splice(index, 0, value);
 			var newText:TextField = new TextField();
 			newText.mouseEnabled = false;
 			newText.autoSize = TextFieldAutoSize.LEFT;
@@ -132,7 +154,8 @@ package org.DWater.charts
 			var idealWidth:Number = Math.max(newText.width + 2 * _styleObject.paddingX, _rectWidth);
 			var chart:Sprite = new Sprite();
 			chart.addEventListener(MouseEvent.MOUSE_OVER, onItem);
-			chart.addEventListener(MouseEvent.MOUSE_DOWN, onItem);
+			chart.addEventListener(MouseEvent.CLICK, onItem);
+			chart.addEventListener(MouseEvent.DOUBLE_CLICK, onItem);
 			if (index>=1) {
 				chart.x=_textFields[index-1].x + _idealWidth[index-1] + _styleObject.paddingX;
 			}
@@ -144,39 +167,46 @@ package org.DWater.charts
 			addChild(chart);
 			addChild(newText);
 			
-			var a:uint = _datas.length;
+			var a:uint = _data.length;
 			for (var i:uint = index + 1; i < a; i++ ) {
 				_charts[i].x += _styleObject.paddingX + idealWidth;
 				_textFields[i].x += _styleObject.paddingX+idealWidth;
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#removeItemAt()
+		 */
 		public function removeItemAt(index:uint):void {
-			if (!_datas) {
+			if (!_data) {
 				return;
 			}
-			if (index>=_datas.length) {
+			if (index>=_data.length) {
 				return;
 			}
-			_datas.splice(index, 1);
+			_data.splice(index, 1);
 			var idealWidth:Number = _idealWidth.splice(index, 1)[0];
 			var tempChart:Sprite = _charts.splice(index, 1)[0];
 			tempChart.removeEventListener(MouseEvent.MOUSE_OVER, onItem);
-			tempChart.removeEventListener(MouseEvent.MOUSE_DOWN, onItem);
+			tempChart.removeEventListener(MouseEvent.CLICK, onItem);
+			tempChart.removeEventListener(MouseEvent.DOUBLE_CLICK, onItem);
 			removeChild(_textFields.splice(index, 1)[0]);
 			removeChild(tempChart);
-			var a:uint = _datas.length;
+			var a:uint = _data.length;
 			for (var i:uint = index; i < a;i++ ) {
 				_charts[i].x -= _styleObject.paddingX + idealWidth;
 				_textFields[i].x -= _styleObject.paddingX+idealWidth;
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#addItem()
+		 */
 		public function addItem(value:Object):void {
-			if (!_datas) {
-				_datas = [];
+			if (!_data) {
+				_data = [];
 			}
-			_datas.push(value);
+			_data.push(value);
 			var newText:TextField = new TextField();
 			newText.mouseEnabled = false;
 			newText.autoSize = TextFieldAutoSize.LEFT;
@@ -187,7 +217,8 @@ package org.DWater.charts
 			var idealWidth:Number = Math.max(newText.width + 2 * _styleObject.paddingX, _rectWidth);
 			var chart:Sprite = new Sprite();
 			chart.addEventListener(MouseEvent.MOUSE_OVER, onItem);
-			chart.addEventListener(MouseEvent.MOUSE_DOWN, onItem);
+			chart.addEventListener(MouseEvent.CLICK, onItem);
+			chart.addEventListener(MouseEvent.DOUBLE_CLICK, onItem);
 			var index:int = _textFields.length;
 			if (index>=1) {
 				chart.x=_textFields[index-1].x + _idealWidth[index-1] + _styleObject.paddingX;
@@ -202,29 +233,36 @@ package org.DWater.charts
 			
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#removeItem()
+		 */
 		public function removeItem(value:Object):void {
-			var index:int = datas.indexOf(value);
+			var index:int = data.indexOf(value);
 			if (index==-1) {
 				return;
 			}
-			_datas.splice(index, 1);
+			_data.splice(index, 1);
 			var idealWidth:Number = _idealWidth.splice(index, 1)[0];
 			var tempChart:Sprite = _charts.splice(index, 1)[0];
 			tempChart.removeEventListener(MouseEvent.MOUSE_OVER, onItem);
-			tempChart.removeEventListener(MouseEvent.MOUSE_DOWN, onItem);
+			tempChart.removeEventListener(MouseEvent.CLICK, onItem);
+			tempChart.removeEventListener(MouseEvent.DOUBLE_CLICK, onItem);
 			removeChild(_textFields.splice(index, 1)[0]);
 			removeChild(tempChart);
-			var a:uint = _datas.length;
+			var a:uint = _data.length;
 			for (var i:uint = index; i < a;i++ ) {
 				_charts[i].x -= _styleObject.paddingX + idealWidth;
 				_textFields[i].x -= _styleObject.paddingX+idealWidth;
 			}
 			_changed = true;
 		}
-		public function get datas():Array {
-			return _datas;
+		/**
+		 * @copy BarChart#data
+		 */
+		public function get data():Array {
+			return _data;
 		}
-		public function set datas(value:Array):void {
+		public function set data(value:Array):void {
 			var tempText:TextField;
 			var tempChart:Sprite;
 			var a:uint = Math.min(value.length, _textFields.length);
@@ -253,7 +291,8 @@ package org.DWater.charts
 				tempText.text = value[i].label;
 				tempChart = new Sprite();
 				tempChart.addEventListener(MouseEvent.MOUSE_OVER, onItem);
-				tempChart.addEventListener(MouseEvent.MOUSE_DOWN, onItem);
+				tempChart.addEventListener(MouseEvent.CLICK, onItem);
+				tempChart.addEventListener(MouseEvent.DOUBLE_CLICK, onItem);
 				tempChart.x = pileOffsetX;
 				idealWidth = Math.max(tempText.width + 2 * _styleObject.paddingX, _rectWidth);
 				_idealWidth.push(idealWidth);
@@ -269,12 +308,13 @@ package org.DWater.charts
 			for (; i < c; i++ ) {
 				tempChart = _charts.pop();
 				tempChart.removeEventListener(MouseEvent.MOUSE_OVER, onItem);
-				tempChart.removeEventListener(MouseEvent.MOUSE_DOWN, onItem);
+				tempChart.removeEventListener(MouseEvent.CLICK, onItem);
+				tempChart.removeEventListener(MouseEvent.DOUBLE_CLICK, onItem);
 				removeChild(_textFields.pop());
 				removeChild(tempChart);
 				_idealWidth.pop();
 			}
-			_datas = value;
+			_data = value;
 			_changed = true;
 		}
 	}

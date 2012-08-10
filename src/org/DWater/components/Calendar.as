@@ -9,7 +9,7 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	
 	/**
-	 * ...
+	 * Calendar is often used to show or choose date.
 	 * @author Dong Dong
 	 */
 	public class Calendar extends Component 
@@ -57,12 +57,18 @@ package org.DWater.components
 			this.mouseChildren = false;
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouse);
 			addEventListener(MouseEvent.MOUSE_UP, onMouse);
 			addEventListener(MouseEvent.MOUSE_OUT, onMouse);
 		}
+		/**
+		 * @private
+		 */
 		private function onMouse(evt:MouseEvent):void {
 			if (evt.type == MouseEvent.MOUSE_DOWN) {
 				_clickItem = getHitArea(mouseX, mouseY);
@@ -87,6 +93,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -147,6 +156,9 @@ package org.DWater.components
 												_styleObject.arrowPadding + _styleObject.arrowWidth+6, _styleObject.arrowHeight+6);
 			_datesRectangle = new Rectangle(_styleObject.margin, _styleObject.titleHeight + _styleObject.margin, _rectWidth - 2 * _styleObject.margin, _rectHeight - _styleObject.titleHeight - 2 * _styleObject.margin);
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			selectedText = _textFields[_startDay + _date.date-1];
@@ -272,9 +284,15 @@ package org.DWater.components
 			_startDay = _date.day;
 			_date.date = temp;
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
@@ -285,9 +303,15 @@ package org.DWater.components
 			_selectedText = value;
 			_selectedText.setTextFormat(_textFormat2);
 		}
+		/**
+		 * day of the current calendar item
+		 */
 		public function get day():Number {
 			return _date.day;
 		}
+		/**
+		 * date of the current calendar item
+		 */
 		public function get date():Number {
 			return _date.date;
 		}
@@ -295,6 +319,9 @@ package org.DWater.components
 			_date.date = value;
 			_changed = true;
 		}
+		/**
+		 * month of the current calendar item
+		 */
 		public function get month():Number {
 			return _date.month;
 		}
@@ -303,6 +330,9 @@ package org.DWater.components
 			changedDateParam();
 			_changed = true;
 		}
+		/**
+		 * year of the current calendar item
+		 */
 		public function get year():Number {
 			return _date.fullYear;
 		}
@@ -311,6 +341,9 @@ package org.DWater.components
 			changedDateParam();
 			_changed = true;
 		}
+		/**
+		 * date data of the current calendar item
+		 */
 		public function set dateData(value:Date):void {
 			if (!value) {
 				_date = new Date();

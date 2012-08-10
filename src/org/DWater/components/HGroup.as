@@ -5,7 +5,7 @@ package org.DWater.components
 	import flash.geom.Rectangle;
 	
 	/**
-	 * ...
+	 * HGroup is often used for horizontal layout.
 	 * @author Dong Dong
 	 */
 	public class HGroup extends ContainerComponent 
@@ -36,6 +36,9 @@ package org.DWater.components
 			_equalPadding = true;
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -49,6 +52,9 @@ package org.DWater.components
 				_padding = _styleObject.padding;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var i:int;
@@ -133,11 +139,17 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * Add new item to the end of the data set.
+		 */
 		public function addItem(item:DisplayObject):void {
 			_children.push(item);
 			addComponent(item);
 			_changed = true;
 		}
+		/**
+		 * Remove an specific item.
+		 */
 		public function removeItem(item:DisplayObject):void {
 			var index:int = _children.indexOf(item);
 			if (index!=-1) {
@@ -145,6 +157,9 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * Get the data item by its index.
+		 */
 		public function getItemAt(index:uint):DisplayObject {
 			if (index>=_children.length) {
 				return null;
@@ -152,6 +167,9 @@ package org.DWater.components
 				return _children[index];
 			}
 		}
+		/**
+		 * Add new item to an index.
+		 */
 		public function addItemAt(item:DisplayObject, index:uint):void {
 			if (index>=_children.length) {
 				return;
@@ -160,6 +178,9 @@ package org.DWater.components
 			addComponent(item);
 			_changed = true;
 		}
+		/**
+		 * Remove an item from an index.
+		 */
 		public function removeItemAt(index:uint):void {
 			if (index>=_children.length) {
 				return;
@@ -167,6 +188,9 @@ package org.DWater.components
 			removeComponent(_children.splice(index, 1)[0]);
 			_changed = true;
 		}
+		/**
+		 * remove all the children in this component
+		 */
 		public function removeAll():void {
 			var a:uint = _children.length;
 			for (var i:uint = 0; i < a;i++ ) {
@@ -174,6 +198,9 @@ package org.DWater.components
 			}
 			_changed = true;
 		}
+		/**
+		 * padding between two elements
+		 */
 		public function get padding():Number {
 			return _padding;
 		}
@@ -183,6 +210,9 @@ package org.DWater.components
 				_changed = true;
 			}
 		}
+		/**
+		 * if this hGroup has a fixed width
+		 */
 		public function get fixedWidth():Boolean {
 			return _fixedWidth;
 		}

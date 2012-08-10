@@ -8,8 +8,7 @@ package org.DWater.charts
 	import org.DWater.components.Component;
 	
 	/**
-	 * ...
-	 * @author Dong Dong
+	 * LineChart is often used to show some datas. 
 	 */
 	public class LineChart extends Component 
 	{
@@ -54,12 +53,21 @@ package org.DWater.charts
 			this.data = data;
 			this.showValue = true;
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -84,6 +92,9 @@ package org.DWater.charts
 				_labelPadding = _styleObject.paddingX;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			var a:int = _data.length;
@@ -147,8 +158,10 @@ package org.DWater.charts
 				graphics.drawCircle(dotX,dotY , _styleObject.dotRadius);
 				graphics.endFill();
 			}
-			
 		}
+		/**
+		 * @copy BarChart#findMax()
+		 */
 		public function findMax():uint {
 			var max:Number = Number.MIN_VALUE;
 			var index:uint;
@@ -161,6 +174,9 @@ package org.DWater.charts
 			}
 			return index;
 		}
+		/**
+		 * @copy BarChart#findMin()
+		 */
 		public function findMin():uint {
 			var min:Number = Number.MAX_VALUE;
 			var index:uint;
@@ -173,6 +189,9 @@ package org.DWater.charts
 			}
 			return index;
 		}
+		/**
+		 * @copy BarChart#getItemAt()
+		 */
 		public function getItemAt(index:uint):Object {
 			if (_data.length==0||index>=_data.length) {
 				return null;
@@ -180,6 +199,9 @@ package org.DWater.charts
 				return _data[index];
 			}
 		}
+		/**
+		 * @copy BarChart#addItemAt()
+		 */
 		public function addItemAt(value:Object, index:uint):void {
 			if (!_data) {
 				_data = [];
@@ -209,6 +231,9 @@ package org.DWater.charts
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#removeItemAt()
+		 */
 		public function removeItemAt(index:uint):void {
 			if (!_data) {
 				return;
@@ -224,6 +249,9 @@ package org.DWater.charts
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#addItem()
+		 */
 		public function addItem(value:Object):void {
 			if (!_data) {
 				_data = [];
@@ -249,6 +277,9 @@ package org.DWater.charts
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#removeItem()
+		 */
 		public function removeItem(value:Object):void {
 			var index:int = data.indexOf(value);
 			if (index==-1) {
@@ -262,6 +293,9 @@ package org.DWater.charts
 			}
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#data
+		 */
 		public function get data():Array {
 			return _data;
 		}
@@ -310,6 +344,9 @@ package org.DWater.charts
 			_data = value;
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#base
+		 */
 		public function get base():Number {
 			return _base;
 		}
@@ -320,6 +357,9 @@ package org.DWater.charts
 			_base = value;
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#showValue
+		 */
 		public function get showValue():Boolean {
 			return _showValue;
 		}
@@ -336,6 +376,9 @@ package org.DWater.charts
 				}
 			}
 		}
+		/**
+		 * If the y-axis should start with zero.
+		 */
 		public function get startWithZero():Boolean {
 			return _startWithZero;
 		}
@@ -343,6 +386,9 @@ package org.DWater.charts
 			_startWithZero = value;
 			_changed = true;
 		}
+		/**
+		 * Padding between labels.
+		 */
 		public function get labelPadding():Number {
 			return _labelPadding;
 		}
@@ -350,6 +396,9 @@ package org.DWater.charts
 			_labelPadding = value;
 			_changed = true;
 		}
+		/**
+		 * @copy BarChart#fixedLength
+		 */
 		public function get fixedLength():int {
 			return _fixedLength;
 		}

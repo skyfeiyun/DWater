@@ -5,19 +5,42 @@ package org.DWater.components
 	import org.DWater.skin.Style;
 	
 	/**
-	 * ...
+	 * Base class of the DWater UI framework.
 	 * @author dongdong
 	 */
 	public class Component extends Sprite 
 	{
+		/**
+		 * @private
+		 */
 		protected var _offsetX:Number;
+		/**
+		 * @private
+		 */
 		protected var _offsetY:Number;
-		
+		/**
+		 * @private
+		 */
 		protected var _container:Sprite;
+		/**
+		 * @private
+		 */
 		protected var _styleObject:Object;
+		/**
+		 * @private
+		 */
 		protected var _name:String;
+		/**
+		 * @private
+		 */
 		protected var _rectWidth:Number;
+		/**
+		 * @private
+		 */
 		protected var _rectHeight:Number;
+		/**
+		 * @private
+		 */
 		protected var _changed:Boolean = false;
 		public function Component(parent:Sprite, x:Number, y:Number):void {
 			initOffsetXY();
@@ -35,24 +58,42 @@ package org.DWater.components
 			Style.instance.addEventListener(Event.CHANGE, onStyleChange);
 			onStyleChange(null);
 		}
+		/**
+		 * @private
+		 */
 		protected function refreshStyle():void {
 			_styleObject = Style.instance.getStyleByName(_name);
 		}
+		/**
+		 * @private
+		 */
 		protected function draw():void {
 			_changed = false;
 			graphics.clear();
 		}
+		/**
+		 * @private
+		 */
 		protected function initEvent():void {
 			addEventListener(Event.ENTER_FRAME, update);
 		}
+		/**
+		 * @private
+		 */
 		protected function initOffsetXY():void {
 			_offsetX = 0;
 			_offsetY = 0;
 		}
+		/**
+		 * @private
+		 */
 		protected function onStyleChange(evt:Event):void {
 			refreshStyle();
 			draw();
 		}
+		/**
+		 * @private
+		 */
 		protected function update(evt:Event):void {
 			if (!_changed||!stage) {
 				return;
@@ -81,9 +122,15 @@ package org.DWater.components
 			this.x =x;
 			this.y =y;
 		}
+		/**
+		 * @private
+		 */
 		internal function get rectWidth():Number {
 			return _rectWidth;
 		}
+		/**
+		 * @private
+		 */
 		internal function get rectHeight():Number {
 			return _rectHeight;
 		}

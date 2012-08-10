@@ -11,7 +11,7 @@ package org.DWater.components
 	import flash.ui.Keyboard;
 	
 	/**
-	 * ...
+	 * ColorChooser is often used to choose color.
 	 * @author Dong Dong
 	 */
 	public class ColorChooser extends Component 
@@ -30,25 +30,40 @@ package org.DWater.components
 			_name = "ColorChooser";
 			super(parent, x, y);
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			super.refreshStyle();
 			_styleObject.skins.textInputPart.refresh(this, _textField);
 			_styleObject.skins.bitmapPart.refresh(this, _bitmap);
 			_styleObject.skins.buttonPart.refresh(graphics);
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			_styleObject.skins.textInputPart.update(_color, _textField);
 			_styleObject.skins.buttonPart.update(_color,graphics);
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			addEventListener(Event.ADDED_TO_STAGE, onStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onStage);
 		}
+		/**
+		 * @private
+		 */
 		override public function set width(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override public function set height(value:Number):void {
 			
 		}
@@ -105,6 +120,9 @@ package org.DWater.components
 			}
 			return item;
 		}
+		/**
+		 * current color of this colorChooser
+		 */
 		public function get color():uint {
 			return _color;
 		}
@@ -112,6 +130,9 @@ package org.DWater.components
 			_color = value;
 			_changed = true;
 		}
+		/**
+		 * color map of this colorChooser
+		 */
 		public function get bitmapData():BitmapData {
 			return _bitmapData;
 		}
@@ -122,6 +143,9 @@ package org.DWater.components
 			_bitmapData = value;
 			_bitmap.bitmapData = _bitmapData;
 		}
+		/**
+		 * if the textField is used to change color
+		 */
 		public function get useInput():Boolean {
 			return _useInput;
 		}

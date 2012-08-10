@@ -7,7 +7,7 @@ package org.DWater.components
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	/**
-	 * ...
+	 * NumberStepper is often used to collect the number data.
 	 * @author Dong Dong
 	 */
 	public class NumberStepper extends Component 
@@ -47,6 +47,9 @@ package org.DWater.components
 			this.maxValue = _maxValue;
 			this.value = _value;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			_minusBtn.addEventListener(MouseEvent.MOUSE_DOWN, onMouse);
@@ -59,6 +62,9 @@ package org.DWater.components
 				value = value + step;
 			}
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -81,6 +87,9 @@ package org.DWater.components
 			
 			_textField.defaultTextFormat = _textFormat;
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			graphics.lineStyle(1, _styleObject.borderColor);
@@ -89,6 +98,9 @@ package org.DWater.components
 			graphics.endFill();
 			_addBtn.x = _rectWidth - _styleObject.buttonWidth;
 		}
+		/**
+		 * reset the value to the default value
+		 */
 		public function reset():void {
 			this.value = _defaultValue;
 		}
@@ -108,7 +120,9 @@ package org.DWater.components
 		override public function set height(value:Number):void {
 			
 		}
-		
+		/**
+		 * min value of this numberStepper
+		 */
 		public function get minValue():Number {
 			return _minValue;
 		}
@@ -126,6 +140,9 @@ package org.DWater.components
 			width = Math.max(_minWidth, _rectWidth);
 			this.value = _value;
 		}
+		/**
+		 * max value of this numberStepper
+		 */
 		public function get maxValue():Number {
 			return _maxValue;
 		}
@@ -143,6 +160,9 @@ package org.DWater.components
 			width = Math.max(_minWidth, _rectWidth);
 			this.value = _value;
 		}
+		/**
+		 * current value of this numberStepper
+		 */
 		public function get value():Number {
 			return _value;
 		}
@@ -156,6 +176,9 @@ package org.DWater.components
 			_value = parseFloat(num.toFixed(8));
 			_textField.text = value.toString();
 		}
+		/**
+		 * step of this numberStepper
+		 */
 		public function get step():Number {
 			return _step;
 		}
@@ -177,6 +200,9 @@ package org.DWater.components
 			width = Math.max(_minWidth, _rectWidth);
 			this.value = this.value;
 		}
+		/**
+		 * default value of this numberStepper
+		 */
 		public function get defaultValue():Number {
 			return _defaultValue;
 		}

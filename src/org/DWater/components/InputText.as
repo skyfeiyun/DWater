@@ -9,7 +9,7 @@ package org.DWater.components
 	import flash.text.TextFormatAlign;
 	
 	/**
-	 * ...
+	 * InputText if often used to type in single line text.
 	 * @author Dong Dong
 	 */
 	public class InputText extends Component 
@@ -30,11 +30,17 @@ package org.DWater.components
 			super(parent, x, y);
 			this.text = text;
 		}
+		/**
+		 * @private
+		 */
 		override protected function initEvent():void {
 			super.initEvent();
 			_textField.addEventListener(FocusEvent.FOCUS_IN, onFocus);
 			_textField.addEventListener(FocusEvent.FOCUS_OUT, onFocus);
 		}
+		/**
+		 * @private
+		 */
 		override protected function draw():void {
 			super.draw();
 			if (_focused) {
@@ -54,12 +60,18 @@ package org.DWater.components
 			_rectWidth = value;
 			_changed = true;
 		}
+		/**
+		 * @private
+		 */
 		override public function get height():Number {
 			return _rectHeight;
 		}
 		override public function set height(value:Number):void {
 			
 		}
+		/**
+		 * @private
+		 */
 		override protected function refreshStyle():void {
 			var lastStyle:Object = _styleObject;
 			super.refreshStyle();
@@ -87,12 +99,18 @@ package org.DWater.components
 				_focused = false;
 			}
 		}
+		/**
+		 * set the text in this inputText
+		 */
 		public function get text():String {
 			return _textField.text;
 		}
 		public function set text(value:String):void {
 			_textField.text = value;
 		}
+		/**
+		 * if this inputText will display as password
+		 */
 		public function get password():Boolean {
 			return _textField.displayAsPassword;
 		}
