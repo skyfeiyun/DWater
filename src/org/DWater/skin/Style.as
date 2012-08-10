@@ -335,7 +335,7 @@ package org.DWater.skin
 					skins = new Object();
 					skins.textInputPart = new SkinPart();
 					skins.textInputPart.textFormat = new TextFormat("ZHSCNMT-GBK", 11, 0x333333, null, null, null, null, null, TextFormatAlign.LEFT);
-					skins.textInputPart.refresh = function(target:ColorChooser, _textField:TextField) {
+					skins.textInputPart.refresh = function(target:ColorChooser, _textField:TextField):void {
 						_textField.autoSize = TextFieldAutoSize.LEFT;
 						_textField.embedFonts = true;
 						_textField.restrict = "0123456789ABCDEFabcdefxX";
@@ -344,7 +344,7 @@ package org.DWater.skin
 						_textField.y = 0;
 						target.color = 0xff0000;
 					}
-					skins.textInputPart.update = function(color:uint, _textField:TextField) {
+					skins.textInputPart.update = function(color:uint, _textField:TextField):void {
 						var colorString:String = color.toString(16).toUpperCase();
 						while (colorString.length<6) {
 							colorString = "0" + colorString;
@@ -354,7 +354,7 @@ package org.DWater.skin
 					}
 					
 					skins.bitmapPart = new SkinPart();
-					skins.bitmapPart.refresh = function(target:ColorChooser, bitmap:Bitmap) {
+					skins.bitmapPart.refresh = function(target:ColorChooser, bitmap:Bitmap):void {
 						if (!this.bitmapData) { 
 							var h:Number,s:Number;
 							var W:Number = 150;
@@ -411,12 +411,12 @@ package org.DWater.skin
 					}
 					
 					skins.buttonPart = new SkinPart();
-					skins.buttonPart.refresh = function(graphics:Graphics) {
+					skins.buttonPart.refresh = function(graphics:Graphics):void {
 						graphics.beginFill(0xff0000);
 						graphics.drawRect(0, 0, 15, 15);
 						graphics.endFill();
 					}
-					skins.buttonPart.update = function(color:uint,graphics:Graphics) {
+					skins.buttonPart.update = function(color:uint,graphics:Graphics):void {
 						graphics.beginFill(color);
 						graphics.drawRect(0, 0, 15, 15);
 						graphics.endFill();

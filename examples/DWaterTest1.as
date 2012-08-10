@@ -1,6 +1,7 @@
 package 
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import org.DWater.charts.BarChart;
 	import org.DWater.charts.FlowChart;
 	import org.DWater.components.Button;
@@ -31,7 +32,8 @@ package
 			
 			var checkBox:CheckBox = new CheckBox(this, 270, 50, {label:"CheckBox",value:"test"});
 			var progressBar:ProgressBar = new ProgressBar(this, 420, 55);
-			progressBar.percent = 40;
+			progressBar.percent = 0;
+			progressBar.addEventListener(Event.ENTER_FRAME, updateProgress);
 			var numberStepper:NumberStepper = new NumberStepper(this, 30, 100, -100, 100, 0, 1);
 			
 			var datas:Array = [ { label:"test1", value:10 }, { label:"test2", value:20 }, { label:"test3", value:40 } ];
@@ -64,6 +66,9 @@ package
 			
 			var fpsMeter:FPSMeter = new FPSMeter(this, 350, 400);
 			fpsMeter.showChart = true;
+		}
+		private function updateProgress(e:Event):void {
+			(e.target as ProgressBar).percent++;
 		}
 	}
 	

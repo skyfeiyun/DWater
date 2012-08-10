@@ -62,7 +62,7 @@ package org.DWater.components
 			}
 		}
 		private function onMouse(e:MouseEvent):void {
-			var item = getClickItem();
+			var item:String = getClickItem();
 			if (e.type==MouseEvent.MOUSE_DOWN) {
 				if (item=="buttonPart") {
 					if (!contains(_bitmap)) {

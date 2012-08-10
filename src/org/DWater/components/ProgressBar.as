@@ -58,7 +58,9 @@ package org.DWater.components
 			graphics.endFill();
 			
 			graphics.beginFill(_styleObject.frontColor);
-			graphics.drawCircle(0, -radius, thickness/2);
+			graphics.drawCircle(0, -radius, thickness / 2);
+			graphics.endFill();
+			graphics.beginFill(_styleObject.frontColor); 
 			graphics.drawCircle(Math.sin(a * 0.01) * radius, -Math.cos(a * 0.01) * radius,thickness/2);
 			graphics.endFill();
 			
