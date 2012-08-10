@@ -25,6 +25,7 @@ package org.DWater.components
 		
 		private var _enabled:Boolean;
 		private var _state:String;
+		private var _toggle:Boolean;
 		
 		private var _icon:Sprite;
 		
@@ -98,16 +99,30 @@ package org.DWater.components
 		protected function onMouse(evt:MouseEvent):void {
 			switch(evt.type) {
 				case MouseEvent.MOUSE_OVER:
-					_state = OVER;
+					if (!_toggle) {
+						_state = OVER;
+					}
 					break;
 				case MouseEvent.MOUSE_UP:
-					_state = UP;
+					if (!_toggle) {
+						_state = UP;
+					}
 					break;
 				case MouseEvent.MOUSE_OUT:
-					_state = UP;
+					if (!_toggle) {
+						_state = UP;
+					}
 					break;
 				case MouseEvent.MOUSE_DOWN:
-					_state = DOWN;
+					if (!_toggle) {
+						_state = DOWN;
+					}else {
+						if (_state==UP) {
+							_state = DOWN;
+						}else {
+							_state = UP;
+						}
+					}
 					break;
 			}
 			_changed = true;
@@ -163,6 +178,12 @@ package org.DWater.components
 		}
 		public function get icon():Sprite {
 			return _icon;
+		}
+		public function get toggle():Boolean {
+			return _toggle;
+		}
+		public function set toggle(value:Boolean):void {
+			_toggle = true;
 		}
 		internal function set labelSize(value:Number):void {
 			_textFormat.size = value;

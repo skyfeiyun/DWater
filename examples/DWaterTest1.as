@@ -25,7 +25,10 @@ package
 		public function DWaterTest1():void {
 			var label:Label = new Label(this, 30, 45, "Label");
 			label.border = true;
-			var button:Button = new Button(this, 150, 45, "Button");
+			var button:Button = new Button(this, 150, 25, "Button");
+			var toggleButton:Button = new Button(this, 150, 55, "ToggleButton");
+			toggleButton.toggle = true;
+			
 			var checkBox:CheckBox = new CheckBox(this, 270, 50, {label:"CheckBox",value:"test"});
 			var progressBar:ProgressBar = new ProgressBar(this, 420, 55);
 			progressBar.percent = 40;
